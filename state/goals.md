@@ -1,79 +1,33 @@
-# Goals & Intentions for {{YEAR}}
+# Goals
 
-**Author:** {{YOUR_NAME}}
-**Year:** {{YEAR}}
-**Purpose:** A living document to guide your priorities and track progress.
+<!-- SETUP NOT COMPLETE: This file has placeholder content -->
+<!-- MARVIN will update this during setup -->
 
----
-
-## North Star
-
-> {{YOUR_NORTH_STAR}}
->
-> Write 1-2 sentences that capture what this year is about for you.
+**Author:** Not yet configured
+**Year:** 2026
 
 ---
 
-## 1. {{GOAL_AREA_1}} (e.g., Health, Career, Learning)
+## Your Goals
 
-### Intent
-What are you trying to achieve in this area? Why does it matter?
+Tell MARVIN about your goals during setup, and they'll appear here.
 
-### Goals
-- Goal 1
-- Goal 2
-- Goal 3
-
-### Principles
-- How will you approach this?
-
----
-
-## 2. {{GOAL_AREA_2}}
-
-### Intent
-
-
-### Goals
--
--
+Examples of goals:
+- Get promoted to senior engineer
+- Run a half marathon
+- Ship 2 side projects
+- Read 24 books
+- Learn Spanish basics
+- Save $10,000
 
 ---
 
-## 3. {{GOAL_AREA_3}}
+## Tracking
 
-### Intent
-
-
-### Goals
--
--
+| Goal | Status | Notes |
+|------|--------|-------|
+| Complete MARVIN setup | In progress | |
 
 ---
 
-## Monthly Output Targets
-
-<!-- Define recurring deliverables if applicable -->
-| Type | Target | Tracking |
-|------|--------|----------|
-| {{Type 1}} | {{X}}/month | content/log.md |
-| {{Type 2}} | {{X}}/month | content/log.md |
-
----
-
-## Review Cadence
-
-- **Daily:** Quick check-in
-- **Weekly:** Progress review
-- **Monthly:** Output review, adjust priorities
-- **Quarterly:** Direction check
-- **Year-End:** Full retrospective using MARVIN records
-
----
-
-## Final Note
-
-This is a living document.
-If it feels heavy, simplify.
-If it feels stale, update it.
-Consistency > perfection.
+*This file is updated during setup and whenever your goals change.*

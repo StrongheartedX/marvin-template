@@ -1,47 +1,24 @@
 # Current State
 
-**Last updated**: {{DATE}}
-**Updated by**: MARVIN session end
+<!-- SETUP NOT COMPLETE: This file has placeholder content -->
+<!-- MARVIN will update this during setup -->
 
----
+Last updated: Not yet configured
 
-## Active Focus
-<!-- Top 2-3 priorities right now -->
--
--
--
+## Active Priorities
+
+1. [Complete MARVIN setup first]
+2. [Your priorities will go here]
+3. [After setup is complete]
 
 ## Open Threads
-<!-- Things in progress that need tracking -->
--
 
-## This Week's Priorities
-<!-- Numbered list of what you're trying to accomplish -->
-1.
-2.
-3.
-
-## Upcoming Events
-| Event | Date | Days Out | Status |
-|-------|------|----------|--------|
-| | | | |
-
-## Content Pacing ({{CURRENT_MONTH}} {{YEAR}})
-<!-- Track against your monthly goals from CLAUDE.md -->
-- {{Content Type 1}}: 0/{{target}}
-- {{Content Type 2}}: 0/{{target}}
-- Days remaining: {{X}}
-
-## Key Contacts
-<!-- People relevant to current work -->
-| Name | Role | Notes |
-|------|------|-------|
-| | | |
+- None yet
 
 ## Recent Context
-<!-- Brief notes from recent sessions for continuity -->
-- {{DATE}}:
+
+- Awaiting initial setup
 
 ---
 
-*This file is updated automatically by MARVIN at session end.*
+*This file is updated by MARVIN at the end of each session.*
