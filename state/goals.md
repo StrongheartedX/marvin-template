@@ -3,31 +3,40 @@
 <!-- SETUP NOT COMPLETE: This file has placeholder content -->
 <!-- MARVIN will update this during setup -->
 
-**Author:** Not yet configured
-**Year:** 2026
+Last updated: Not yet configured
 
 ---
 
-## Your Goals
+## Work Goals
 
-Tell MARVIN about your goals during setup, and they'll appear here.
+Goals related to your job - KPIs, projects, professional development, team goals.
 
-Examples of goals:
-- Get promoted to senior engineer
-- Run a half marathon
-- Ship 2 side projects
-- Read 24 books
-- Learn Spanish basics
-- Save $10,000
+*Examples:*
+- Hit Q1 revenue target
+- Ship the new feature by March
+- Get promoted to senior
+- Improve team velocity by 20%
+
+---
+
+## Personal Goals
+
+Goals for life outside work - health, hobbies, relationships, personal growth.
+
+*Examples:*
+- Walk 10k steps daily
+- Write a blog post every week
+- Read 24 books this year
+- Learn to play guitar
 
 ---
 
 ## Tracking
 
-| Goal | Status | Notes |
-|------|--------|-------|
-| Complete MARVIN setup | In progress | |
+| Goal | Type | Status | Notes |
+|------|------|--------|-------|
+| Complete MARVIN setup | - | In progress | |
 
 ---
 
-*This file is updated during setup and whenever your goals change.*
+*Tell MARVIN about your goals during setup, and they'll appear here. You can update these anytime - just say "let's update my goals."*

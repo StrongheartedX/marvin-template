@@ -29,9 +29,29 @@ Say something like:
 Ask these questions one at a time, waiting for answers:
 
 1. "What's your name?"
+
 2. "What's your job title or role?" (e.g., Marketing Manager, Software Engineer, Freelancer)
+
 3. "Where do you work?" (optional - they can skip this)
-4. "What are your main goals this year? Tell me as many as you'd like - these can be work goals, personal goals, or both."
+
+4. "Let's talk about your goals. I like to track two types:"
+
+   **Work goals** - These are things related to your job:
+   - KPIs you're trying to hit
+   - Projects you want to ship
+   - Skills you want to develop professionally
+   - Team goals you're contributing to
+
+   **Personal goals** - These are about your life outside work:
+   - Health habits (walking 10k steps, going to the gym)
+   - Creative projects (writing a blog every week, learning guitar)
+   - Relationships, hobbies, personal growth
+
+   Ask: "What are some goals you're working toward? Start with whatever comes to mind - we can always add more later as we get to know each other."
+
+   After they share, reassure them:
+   > "These aren't set in stone. As we work together, I'll get to know your priorities and help you make progress on what matters. We can update these anytime - just tell me 'I want to add a new goal' or 'let's update my goals.'"
+
 5. "How would you like me to communicate with you?"
    - Professional (clear, direct, business-like)
    - Casual (friendly, relaxed, conversational)
@@ -41,24 +61,30 @@ Ask these questions one at a time, waiting for answers:
 
 Once you have their info, update these files:
 
-**Update `state/goals.md`** with their goals formatted nicely:
+**Update `state/goals.md`** with their goals organized by type:
 ```markdown
 # Goals
 
 Last updated: {TODAY'S DATE}
 
-## This Year
+## Work Goals
 
-- {Goal 1}
-- {Goal 2}
-- {Goal 3}
+- {Work goal 1}
+- {Work goal 2}
+...
+
+## Personal Goals
+
+- {Personal goal 1}
+- {Personal goal 2}
 ...
 
 ## Tracking
 
-| Goal | Status | Notes |
-|------|--------|-------|
-| {Goal 1} | Not started | |
+| Goal | Type | Status | Notes |
+|------|------|--------|-------|
+| {Goal 1} | Work | Not started | |
+| {Goal 2} | Personal | Not started | |
 ...
 ```
 
