@@ -20,6 +20,7 @@ Display this reference:
 | /marvin   | Start a session with a briefing     |
 | /end      | End session and save everything     |
 | /update   | Quick checkpoint (save progress)    |
+| /report   | Generate a weekly summary of work   |
 | /commit   | Review and commit git changes       |
 | /code     | Open MARVIN in your IDE             |
 | /help     | Show this help guide                |

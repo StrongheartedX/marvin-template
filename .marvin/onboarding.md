@@ -97,38 +97,42 @@ Last updated: {TODAY'S DATE}
 **Communication Style:** {Their preference - Professional/Casual/Sarcastic}
 ```
 
-### Step 4: Set Up Shell Commands (Optional but Recommended)
+### Step 4: Quick Launch Shortcut (Optional)
 
-Ask: "Would you like me to add shell commands so you can start MARVIN from anywhere? This adds:
-- `marvin` - starts MARVIN from any terminal
-- `mcode` - opens MARVIN in your IDE"
+Ask: "Would you like to be able to start me by just typing `marvin` from anywhere on your computer? It's a quick shortcut that makes it easier to open me up."
 
-If yes, tell them to run:
-```bash
-./.marvin/setup.sh
-```
+If yes:
+> "Great! I'll set that up for you. Just run this command - you can copy and paste it:"
+>
+> `./.marvin/setup.sh`
+>
+> "It'll ask you a couple quick questions, then you're all set. After that, whenever you want to talk to me, just open a new window and type `marvin`."
 
-Explain: "This will ask you a few questions and add shortcuts to your terminal. After it runs, open a new terminal window and type 'marvin' to start a session with me, or 'mcode' to open in your IDE."
+If they seem confused or hesitant:
+> "No worries, we can skip this for now! You can always set it up later. For now, you'll just open this folder and start Claude Code like you did today."
 
-### Step 5: Optional Integrations
+### Step 5: Connect Your Tools (Optional)
 
-Ask: "MARVIN can connect to external tools like Google Workspace and Atlassian. Would you like to see what integrations are available?"
+Ask: "Do you use Google Calendar, Gmail, Jira, or Confluence? I can connect to those so I can check your calendar, help with emails, or look up tickets for you."
 
-Point them to: `.marvin/integrations/README.md` for the full list, or offer to set up common ones:
+If yes, ask which ones they use and guide them:
 
-**For Google Workspace:**
-Tell them to run: `./.marvin/integrations/google-workspace/setup.sh`
-- Connects Gmail, Calendar, and Drive
+**For Google (Calendar, Gmail, Drive):**
+> "Let's connect Google. Run this command:"
+>
+> `./.marvin/integrations/google-workspace/setup.sh`
+>
+> "It'll open a browser window where you log into Google and give me permission to help you."
 
-**For Atlassian (Jira/Confluence):**
-Tell them to run: `./.marvin/integrations/atlassian/setup.sh`
-- Connects Jira and Confluence
+**For Jira/Confluence:**
+> "Let's connect Atlassian. Run this command:"
+>
+> `./.marvin/integrations/atlassian/setup.sh`
+>
+> "Same thing - it'll open a browser for you to log in."
 
-If they need to store API keys or secrets, tell them:
-- Copy `.env.example` to `.env`: `cp .env.example .env`
-- Add their keys to `.env` (this file is not tracked in git, so secrets stay safe)
-
-If they say no or want to skip, say: "No problem! You can always add integrations later. Just type `/help` to see what's available, or ask me to help you set one up."
+If they say no or want to skip:
+> "No problem! We can always add these later. Just ask me anytime - 'Hey MARVIN, help me connect to Google Calendar' - and I'll walk you through it."
 
 ### Step 6: Explain the Commands
 
@@ -141,6 +145,7 @@ Before their first session, walk them through what they can do:
 | `/marvin` | **Start your day** - I'll give you a briefing with your priorities and what's on deck |
 | `/end` | **End your session** - I'll save everything we discussed so I remember next time |
 | `/update` | **Quick save** - Checkpoint your progress without ending the session |
+| `/report` | **Weekly report** - I'll summarize what you accomplished this week |
 | `/commit` | **Git commits** - I'll review your code changes and help write good commit messages |
 | `/code` | **Open in IDE** - Opens this folder in Cursor, VS Code, or your preferred editor |
 | `/help` | **Get help** - See all commands and available integrations |

@@ -74,6 +74,7 @@ When helping set up integrations that require API keys:
 | `/marvin` | Start a session with a briefing |
 | `/end` | End session and save everything |
 | `/update` | Quick checkpoint (save progress) |
+| `/report` | Generate a weekly summary of your work |
 | `/commit` | Review and commit git changes |
 | `/code` | Open MARVIN in your IDE |
 | `/help` | Show commands and available integrations |
@@ -110,6 +111,7 @@ marvin/
 │   ├── current.md         # Priorities and open threads
 │   └── goals.md           # Your goals
 ├── sessions/              # Daily session logs
+├── reports/               # Weekly reports (from /report)
 ├── content/               # Your content and notes
 ├── skills/                # Capabilities (add your own!)
 └── .marvin/               # Setup machinery (hidden)
