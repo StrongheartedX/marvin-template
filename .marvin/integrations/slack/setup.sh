@@ -26,13 +26,30 @@ else
     exit 1
 fi
 
-# Check Node.js
+# Check Node.js first, then ask about scope
+# (scope question comes after all checks)
 if command -v node &> /dev/null; then
     echo -e "${GREEN}✓ Node.js installed${NC}"
 else
     echo -e "${RED}✗ Node.js not found${NC}"
     echo "Please install Node.js first: https://nodejs.org"
     exit 1
+fi
+
+# Scope selection
+echo ""
+echo "Where should this integration be available?"
+echo "  1) All projects (user-scoped)"
+echo "  2) This project only (project-scoped)"
+echo ""
+echo -e "${YELLOW}Choice [1]:${NC}"
+read -r SCOPE_CHOICE
+SCOPE_CHOICE=${SCOPE_CHOICE:-1}
+
+if [[ "$SCOPE_CHOICE" == "1" ]]; then
+    SCOPE_FLAG="-s user"
+else
+    SCOPE_FLAG=""
 fi
 
 echo ""
@@ -116,7 +133,7 @@ SERVER_NAME=${SERVER_NAME:-slack}
 claude mcp remove "$SERVER_NAME" 2>/dev/null || true
 
 # Add Slack MCP server
-claude mcp add "$SERVER_NAME" \
+claude mcp add "$SERVER_NAME" $SCOPE_FLAG \
     -e SLACK_MCP_XOXP_TOKEN="$SLACK_TOKEN" \
     -- npx -y slack-mcp-server@latest --transport stdio
 

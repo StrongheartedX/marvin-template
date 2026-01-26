@@ -62,6 +62,17 @@ After setup, try these commands with MARVIN:
 
 You can connect multiple Slack workspaces by running the setup script again and choosing a different server name (e.g., `slack-work`, `slack-personal`).
 
+## Danger Zone
+
+This integration can perform actions that affect your team:
+
+| Action | Risk Level | Who's Affected |
+|--------|------------|----------------|
+| Send messages | **High** | Team members see it immediately |
+| Read messages, search | Low | No external impact |
+
+**MARVIN will always confirm before sending messages.**
+
 ## Troubleshooting
 
 **"Invalid token" errors**
