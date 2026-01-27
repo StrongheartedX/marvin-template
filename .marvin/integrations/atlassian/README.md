@@ -24,7 +24,7 @@ Teams that use Atlassian products for project management and documentation.
 
 The script will:
 1. Configure the Atlassian MCP server
-2. Open a browser for you to log in with your Atlassian account
+2. Walk you through manual authentication via `claude mcp`
 
 ## Try It
 
@@ -51,13 +51,21 @@ This integration can perform actions that affect your team:
 
 ## Troubleshooting
 
-**Browser doesn't open for login**
-Try running the setup script again, or restart Claude Code.
+**Authentication issues / "Unauthorized" loop**
+
+Re-authenticate manually:
+
+1. Run `claude mcp` in your terminal
+2. Find `atlassian` in the server list and select it
+3. Choose "Authenticate"
+4. Complete the login in the browser that opens
 
 **"Unauthorized" errors**
+
 Make sure you're logging in with an account that has access to the Jira/Confluence workspace.
 
 **Can't find your workspace**
+
 The first time you use Jira or Confluence commands, you may need to select which Atlassian site to connect to.
 
 ---
