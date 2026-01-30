@@ -159,13 +159,13 @@ if [[ -f "$CURRENT_MARVIN/.env" ]]; then
     print_color "$GREEN" "  Copied: .env"
 fi
 
-# Custom skills (check for any that aren't in template)
-if [[ -d "$CURRENT_MARVIN/skills" ]]; then
-    for skill_dir in "$CURRENT_MARVIN/skills/"*/; do
-        skill_name=$(basename "$skill_dir")
-        if [[ ! -d "$TEMPLATE_DIR/skills/$skill_name" ]]; then
-            cp -r "$skill_dir" "$WORKSPACE_DIR/skills/"
-            print_color "$GREEN" "  Copied custom skill: $skill_name"
+# Custom commands (check for any that aren't in template)
+if [[ -d "$CURRENT_MARVIN/.claude/commands" ]]; then
+    for cmd_file in "$CURRENT_MARVIN/.claude/commands/"*.md; do
+        cmd_name=$(basename "$cmd_file")
+        if [[ ! -f "$TEMPLATE_DIR/.claude/commands/$cmd_name" ]]; then
+            cp "$cmd_file" "$WORKSPACE_DIR/.claude/commands/"
+            print_color "$GREEN" "  Copied custom command: $cmd_name"
         fi
     done
 fi

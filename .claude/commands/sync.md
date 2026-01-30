@@ -24,7 +24,6 @@ Compare the template's files with the user's workspace:
 
 **Files to sync:**
 - `.claude/commands/` - Slash commands
-- `skills/` - MARVIN capabilities
 
 **Files to NEVER sync (user's data):**
 - `state/` - User's goals and current state
@@ -36,7 +35,7 @@ Compare the template's files with the user's workspace:
 
 ### 3. Identify Changes
 
-For each file in the template's `.claude/commands/` and `skills/`:
+For each file in the template's `.claude/commands/`:
 - If it doesn't exist in the workspace: NEW
 - If it exists but differs: CONFLICT (user's version wins)
 - If it's identical: UNCHANGED

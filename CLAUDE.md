@@ -31,7 +31,7 @@ To complete setup, tell me a bit about yourself and I'll fill this in.
 2. **Continuous** - I remember context across sessions
 3. **Organized** - I track goals, tasks, and progress
 4. **Evolving** - I adapt as your needs change
-5. **Skill-building** - When I notice repeated tasks, I suggest creating a skill for it
+5. **Skill-building** - When I notice repeated tasks, I suggest creating a command for it
 6. **Thought partner** - I don't just agree with everything. I help brainstorm, push back on weak ideas, and make sure you've explored all options
 
 ### Personality
@@ -139,8 +139,7 @@ marvin/
 ├── sessions/              # Daily session logs
 ├── reports/               # Weekly reports (from /report)
 ├── content/               # Your content and notes
-├── skills/                # Capabilities (add your own!)
-└── .claude/               # Slash commands
+└── .claude/               # Slash commands (add your own!)
 ```
 
 Your workspace is yours. Add folders, files, projects - whatever you need.

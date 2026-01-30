@@ -92,7 +92,7 @@ echo "$(pwd)" > ~/marvin/.marvin-source
 
 **What gets copied:**
 - `.claude/` - The slash commands
-- `skills/` - MARVIN's capabilities (user can add their own)
+- `.claude/commands/` - Slash commands (user can add their own)
 - `state/` - Current priorities and goals (will be personalized)
 - `CLAUDE.md` - Main context file (will be personalized)
 - `.env.example` - Template for API keys
@@ -296,7 +296,7 @@ Once setup is complete, MARVIN should:
 
 When the user runs `/sync`, MARVIN should:
 1. Read `.marvin-source` to find the template directory
-2. Check for new/updated files in the template's `.claude/commands/` and `skills/`
+2. Check for new/updated files in the template's `.claude/commands/`
 3. Copy new files to the user's workspace
 4. For conflicts, the user's version is the source of truth (don't overwrite)
 5. Report what was updated
