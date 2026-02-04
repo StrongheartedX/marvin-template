@@ -4,6 +4,19 @@ This guide walks new users through setting up MARVIN. Read by MARVIN when setup 
 
 ---
 
+## Important: Integration Setup
+
+**DO NOT run setup scripts via Bash during onboarding.** The scripts use interactive `read` prompts that don't work well from within Claude Code.
+
+Instead, for Atlassian and MS365:
+1. Run `claude mcp add` commands directly (see Step 7)
+2. Have the user type `/mcp` to authenticate (stays inside Claude Code)
+3. Test the integration after auth
+
+This keeps the entire onboarding flow inside Claude Code - no separate terminals needed.
+
+---
+
 ## How to Detect if Setup is Needed
 
 Check these signs:
@@ -211,28 +224,107 @@ If they seem confused or hesitant:
 
 ### Step 7: Connect Your Tools (Optional)
 
-Ask: "Do you use Google Calendar, Gmail, Jira, or Confluence? I can connect to those so I can check your calendar, help with emails, or look up tickets for you."
+Ask: "Do you use Jira, Confluence, or Microsoft 365 (Outlook, Teams)? I can connect to those so I can check your calendar, help with emails, or look up tickets for you."
 
-If yes, ask which ones they use and guide them:
+If yes, ask which ones they use and set them up **directly** (no separate terminal needed).
 
-**For Google (Calendar, Gmail, Drive):**
-> "Let's connect Google. Run this command from the template folder:"
->
-> `./.marvin/integrations/google-workspace/setup.sh`
->
-> "It'll open a browser window where you log into Google and give me permission to help you."
+---
 
-**For Jira/Confluence:**
-> "Let's connect Atlassian. Run this command from the template folder:"
->
-> `./.marvin/integrations/atlassian/setup.sh`
->
-> "Same thing - it'll open a browser for you to log in."
+**For Jira/Confluence (Atlassian):**
 
-If they say no or want to skip:
-> "No problem! We can always add these later. Just ask me anytime - 'Hey MARVIN, help me connect to Google Calendar' - and I'll walk you through it."
+1. Ask: "Should I make this available in all your projects, or just this one?"
+   - All projects = user scope
+   - Just this one = project scope
 
-**Note:** Integrations are run from the template directory, not the user's workspace. The MCP servers are configured globally for Claude Code.
+2. Run the appropriate command via Bash:
+   ```bash
+   # Remove existing if present
+   claude mcp remove atlassian 2>/dev/null || true
+
+   # Add with user scope (or remove -s user for project scope)
+   claude mcp add atlassian -s user --transport http https://mcp.atlassian.com/v1/mcp
+   ```
+
+3. Tell them:
+   > "I've added the Atlassian connection. Now you need to log in to connect your account.
+   >
+   > Type `/mcp` right here, then:
+   > 1. Select 'atlassian' from the list
+   > 2. Choose 'Authenticate'
+   > 3. Complete the login in the browser window that opens
+   >
+   > Come back here when you're done!"
+
+4. Wait for them to confirm they've authenticated, then test it:
+   > "Let me make sure it's working... What's your Jira project called?"
+
+   Try a simple query like listing their recent tickets.
+
+---
+
+**For Microsoft 365 (Outlook, Calendar, OneDrive, Teams):**
+
+1. Ask: "Is this a work/school account (Microsoft 365 Business) or a personal account (outlook.com, hotmail.com)?"
+   - Work/school = add `--org-mode` flag
+   - Personal = no flag needed
+
+2. Ask: "Do you need all MS365 tools (Mail, Calendar, Files, Teams, SharePoint), or just the essentials (Mail, Calendar, Files)?"
+   - All tools = no preset flag
+   - Essentials = add `--preset mail,calendar,files`
+
+3. Ask: "Should I make this available in all your projects, or just this one?"
+
+4. Run the appropriate command via Bash:
+   ```bash
+   # Remove existing if present
+   claude mcp remove ms365 2>/dev/null || true
+
+   # Add MS365 (adjust flags based on their answers)
+   # Example for work account, all tools, user scope:
+   claude mcp add ms365 -s user -- npx -y @softeria/ms-365-mcp-server --org-mode
+
+   # Example for personal account, essentials only, project scope:
+   claude mcp add ms365 -- npx -y @softeria/ms-365-mcp-server --preset mail,calendar,files
+   ```
+
+5. Tell them:
+   > "I've added Microsoft 365. Now you need to log in to connect your account.
+   >
+   > Type `/mcp` right here, then:
+   > 1. Select 'ms365' from the list
+   > 2. Choose 'Authenticate'
+   > 3. It will show you a URL and a code - open that URL in your browser and enter the code
+   > 4. Sign in with your Microsoft account
+   >
+   > Come back here when you're done!"
+
+6. Wait for them to confirm, then test it:
+   > "Let me check if it's working... What's on your calendar today?"
+
+---
+
+**For Google Workspace (Gmail, Calendar, Drive):**
+
+Google requires additional setup (OAuth credentials from Google Cloud Console) that's more involved. For now:
+
+> "Google Workspace requires some additional setup that's a bit more technical. Let's skip that for now and come back to it later if you need it. The other integrations should cover most of what you need!"
+
+If they really want Google, guide them to run the setup script manually later:
+> "When you're ready, you can set up Google by running this in a terminal:
+> `{TEMPLATE_PATH}/.marvin/integrations/google-workspace/setup.sh`
+> It'll walk you through creating the necessary credentials."
+
+---
+
+**If they say no or want to skip:**
+> "No problem! We can always add these later. Just ask me anytime - 'Hey MARVIN, help me connect to Jira' - and I'll walk you through it."
+
+**If authentication fails or they get stuck:**
+1. Have them type `/mcp` again to check if the integration appears
+2. If it's there but not authenticated, try the Authenticate option again
+3. If it's not there, re-run the `claude mcp add` command
+
+**Note:** MCP servers are configured globally for Claude Code, so they'll work in any project once set up.
 
 ### Step 8: Explain the Daily Workflow
 
