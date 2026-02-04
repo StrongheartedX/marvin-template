@@ -10,21 +10,95 @@ This guide walks new users through setting up MARVIN. Read by MARVIN when setup 
 
 Instead, for Atlassian and MS365:
 1. Run `claude mcp add` commands directly (see Step 7)
-2. Have the user type `/mcp` to authenticate (stays inside Claude Code)
-3. Test the integration after auth
-
-This keeps the entire onboarding flow inside Claude Code - no separate terminals needed.
+2. User must restart Claude Code for new MCPs to appear
+3. After restart, user types `/mcp` to authenticate
+4. MARVIN detects pending auth state and guides them through it
 
 ---
 
-## How to Detect if Setup is Needed
+## How to Detect Onboarding State
+
+**Check in this order:**
+
+### 1. Check for Pending Integration Auth (restart needed)
+
+Look for the file `.onboarding-pending-auth` in the workspace root.
+
+If this file exists:
+- Read it to see which integrations need authentication
+- Skip to **"Resuming After Restart"** section below
+- Guide user through `/mcp` authentication for each integration
+- Delete the file when done
+- Complete onboarding with Steps 8-10
+
+### 2. Check for Fresh Setup Needed
 
 Check these signs:
 - Does `state/current.md` contain "{{" placeholders or "[Add your priorities here]"?
 - Does `state/goals.md` contain placeholder text?
 - Is there NO personalized user information in `CLAUDE.md`?
 
-If any of these are true, run this onboarding flow instead of the normal `/marvin` briefing.
+If any of these are true, run the full onboarding flow starting at Step 1.
+
+---
+
+## Resuming After Restart (Integration Auth)
+
+If `.onboarding-pending-auth` exists, the user just restarted to authenticate integrations.
+
+**First, read the file to see which integrations need auth:**
+```bash
+cat .onboarding-pending-auth
+```
+
+**Greet them warmly:**
+> "Welcome back, {name}! You're almost done - just need to connect your accounts now. This is the last step, I promise.
+>
+> Type `/mcp` right here. You should see your integrations listed."
+
+**Wait for them to type `/mcp`**, then guide them through each integration:
+
+> "Great! Now:
+> 1. Select '{integration_name}' from the list
+> 2. Choose 'Authenticate'
+> 3. A browser window will open - log in with your {service} account
+> 4. Once you see 'success' in the browser, come back here
+>
+> Let me know when you're done!"
+
+**After they confirm each integration:**
+- Ask: "Did it work? Let me test it real quick..."
+- Try a simple test:
+  - **Atlassian:** "What Jira projects do you have access to?" or use an Atlassian MCP tool
+  - **MS365:** "What's on your calendar today?" or use an MS365 MCP tool
+- If it works: "Perfect! {Integration} is connected."
+- If it fails: See troubleshooting below.
+
+**Troubleshooting (if auth doesn't work):**
+
+1. "Let's try `/mcp` again - do you see {integration} in the list?"
+   - If NO: The MCP wasn't added. Re-run the `claude mcp add` command for that integration, then restart again.
+   - If YES but not authenticated: Select it and try 'Authenticate' again.
+
+2. "Sometimes the browser auth doesn't complete properly. Try these steps:"
+   - Close any old browser tabs from previous auth attempts
+   - In `/mcp`, select the integration and choose 'Authenticate'
+   - Complete the login in the new browser window
+   - Wait for the success message before coming back
+
+3. If still stuck: "Let's skip this for now and try again later. Just ask me 'help me connect to {integration}' anytime."
+
+**When all integrations are authenticated:**
+
+1. Delete the pending auth file:
+   ```bash
+   rm .onboarding-pending-auth
+   ```
+
+2. Celebrate briefly:
+   > "Awesome! All your integrations are connected. Let me finish telling you how we'll work together..."
+
+3. Continue to Step 8 (Explain the Daily Workflow) to finish onboarding
 
 ---
 
@@ -210,121 +284,127 @@ Last updated: {TODAY'S DATE}
 
 Ask: "Would you like to be able to start me by just typing `marvin` anywhere in the terminal? It's a quick shortcut that makes it easier to open me up."
 
-If yes:
-> "Great! I'll set that up for you. Just run this command - you can copy and paste it:"
->
-> `./.marvin/setup.sh`
->
-> "It'll ask you a couple quick questions, then you're all set. After that, whenever you want to talk to me, just open a new window and type `marvin`."
+If yes, **set it up directly** (don't ask them to run a script):
 
-**Important:** The setup.sh script needs to know about the new workspace location. It should update the shell alias to point to `~/marvin` (or wherever they chose), not the template directory.
+1. Detect their shell: `echo $SHELL`
+2. Determine config file: `.zshrc` for zsh, `.bashrc` for bash, `.profile` otherwise
+3. Check if `marvin()` function already exists in that file
+4. If not, append this function:
 
-If they seem confused or hesitant:
-> "No worries, we can skip this for now! You can always set it up later. For now, you'll navigate to your MARVIN folder and start Claude Code from there."
+```bash
+# MARVIN - AI Chief of Staff
+marvin() {
+    echo -e '\e[1;33m███╗   ███╗    █████╗    ██████╗   ██╗   ██╗  ██╗   ███╗   ██╗   \e[0m'
+    echo -e '\e[1;33m████╗ ████║   ██╔══██╗   ██╔══██╗  ██║   ██║  ██║   ████╗  ██║   \e[0m'
+    echo -e '\e[1;33m██╔████╔██║   ███████║   ██████╔╝  ██║   ██║  ██║   ██╔██╗ ██║   \e[0m'
+    echo -e '\e[1;33m██║╚██╔╝██║   ██╔══██║   ██╔══██╗  ╚██╗ ██╔╝  ██║   ██║╚██╗██║   \e[0m'
+    echo -e '\e[1;33m██║ ╚═╝ ██║██╗██║  ██║██╗██║  ██║██╗╚████╔╝██╗██║██╗██║ ╚████║██╗\e[0m'
+    echo -e '\e[1;33m╚═╝     ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝ ╚═══╝ ╚═╝╚═╝╚═╝╚═╝  ╚═══╝╚═╝\e[0m'
+    echo ''
+    cd "{WORKSPACE_PATH}" && claude
+}
+```
+
+Replace `{WORKSPACE_PATH}` with their actual workspace path (e.g., `~/marvin`).
+
+5. Tell them: "Done! After we finish here, open a new terminal and you can start me anytime by typing `marvin`."
+
+If they skip: "No worries! You can always navigate to your MARVIN folder and run `claude` to start me."
 
 ### Step 7: Connect Your Tools (Optional)
 
 Ask: "Do you use Jira, Confluence, or Microsoft 365 (Outlook, Teams)? I can connect to those so I can check your calendar, help with emails, or look up tickets for you."
 
-If yes, ask which ones they use and set them up **directly** (no separate terminal needed).
+If they say **no or skip**, move to Step 8.
+
+If they say **yes**, collect all integrations first, then set them all up before the restart.
 
 ---
+
+#### Collecting Integration Preferences
+
+Ask which integrations they want and gather configuration for each:
 
 **For Jira/Confluence (Atlassian):**
+- Ask: "Should Jira be available in all your projects, or just this one?" (all = user scope, this one = project scope)
 
-1. Ask: "Should I make this available in all your projects, or just this one?"
-   - All projects = user scope
-   - Just this one = project scope
+**For Microsoft 365:**
+- Ask: "Is this a work/school account or personal (outlook.com)?" (work = `--org-mode`)
+- Ask: "All MS365 tools or just essentials (mail, calendar, files)?" (essentials = `--preset mail,calendar,files`)
+- Ask: "Available in all projects or just this one?" (all = user scope)
 
-2. Run the appropriate command via Bash:
-   ```bash
-   # Remove existing if present
-   claude mcp remove atlassian 2>/dev/null || true
-
-   # Add with user scope (or remove -s user for project scope)
-   claude mcp add atlassian -s user --transport http https://mcp.atlassian.com/v1/mcp
-   ```
-
-3. Tell them:
-   > "I've added the Atlassian connection. Now you need to log in to connect your account.
-   >
-   > Type `/mcp` right here, then:
-   > 1. Select 'atlassian' from the list
-   > 2. Choose 'Authenticate'
-   > 3. Complete the login in the browser window that opens
-   >
-   > Come back here when you're done!"
-
-4. Wait for them to confirm they've authenticated, then test it:
-   > "Let me make sure it's working... What's your Jira project called?"
-
-   Try a simple query like listing their recent tickets.
+**For Google Workspace:**
+> "Google Workspace requires some extra setup that's more technical. Let's skip that for now - the other integrations should cover what you need! You can always add it later."
 
 ---
 
-**For Microsoft 365 (Outlook, Calendar, OneDrive, Teams):**
+#### Adding the Integrations
 
-1. Ask: "Is this a work/school account (Microsoft 365 Business) or a personal account (outlook.com, hotmail.com)?"
-   - Work/school = add `--org-mode` flag
-   - Personal = no flag needed
+Once you've collected their preferences, run the appropriate `claude mcp add` commands:
 
-2. Ask: "Do you need all MS365 tools (Mail, Calendar, Files, Teams, SharePoint), or just the essentials (Mail, Calendar, Files)?"
-   - All tools = no preset flag
-   - Essentials = add `--preset mail,calendar,files`
+**Atlassian (Jira/Confluence):**
+```bash
+claude mcp remove atlassian 2>/dev/null || true
+claude mcp add atlassian -s user --transport http https://mcp.atlassian.com/v1/mcp
+# Remove "-s user" for project scope
+```
 
-3. Ask: "Should I make this available in all your projects, or just this one?"
-
-4. Run the appropriate command via Bash:
-   ```bash
-   # Remove existing if present
-   claude mcp remove ms365 2>/dev/null || true
-
-   # Add MS365 (adjust flags based on their answers)
-   # Example for work account, all tools, user scope:
-   claude mcp add ms365 -s user -- npx -y @softeria/ms-365-mcp-server --org-mode
-
-   # Example for personal account, essentials only, project scope:
-   claude mcp add ms365 -- npx -y @softeria/ms-365-mcp-server --preset mail,calendar,files
-   ```
-
-5. Tell them:
-   > "I've added Microsoft 365. Now you need to log in to connect your account.
-   >
-   > Type `/mcp` right here, then:
-   > 1. Select 'ms365' from the list
-   > 2. Choose 'Authenticate'
-   > 3. It will show you a URL and a code - open that URL in your browser and enter the code
-   > 4. Sign in with your Microsoft account
-   >
-   > Come back here when you're done!"
-
-6. Wait for them to confirm, then test it:
-   > "Let me check if it's working... What's on your calendar today?"
+**Microsoft 365:**
+```bash
+claude mcp remove ms365 2>/dev/null || true
+claude mcp add ms365 -s user -- npx -y @softeria/ms-365-mcp-server --org-mode
+# Remove "-s user" for project scope
+# Remove "--org-mode" for personal accounts
+# Add "--preset mail,calendar,files" for essentials only
+```
 
 ---
 
-**For Google Workspace (Gmail, Calendar, Drive):**
+#### Creating the Pending Auth File
 
-Google requires additional setup (OAuth credentials from Google Cloud Console) that's more involved. For now:
+After adding all integrations, create a file to track what needs authentication:
 
-> "Google Workspace requires some additional setup that's a bit more technical. Let's skip that for now and come back to it later if you need it. The other integrations should cover most of what you need!"
+```bash
+# In the user's workspace (e.g., ~/marvin)
+cat > .onboarding-pending-auth << 'EOF'
+# Integrations pending authentication
+# MARVIN will read this file on next startup and guide you through auth
 
-If they really want Google, guide them to run the setup script manually later:
-> "When you're ready, you can set up Google by running this in a terminal:
-> `{TEMPLATE_PATH}/.marvin/integrations/google-workspace/setup.sh`
-> It'll walk you through creating the necessary credentials."
+atlassian
+ms365
+EOF
+```
+
+Only include the integrations they actually requested.
 
 ---
 
-**If they say no or want to skip:**
+#### Guiding the Restart
+
+After adding integrations and creating the pending auth file, tell them:
+
+> "I've added your integrations. Now here's the important part:
+>
+> **I need to restart to see them.** Here's what to do:
+>
+> 1. Type `exit` to close me
+> 2. Close this terminal window completely
+> 3. Open a new terminal
+> 4. Type `marvin` to start me up again
+>
+> When you come back, I'll know exactly where we left off and walk you through connecting your accounts. It'll take about 2 minutes.
+>
+> Ready? Type `exit` and I'll see you in a moment!"
+
+**Wait for them to exit.** They will return via the "Resuming After Restart" flow at the top of this document.
+
+---
+
+**If they don't want any integrations:**
+
 > "No problem! We can always add these later. Just ask me anytime - 'Hey MARVIN, help me connect to Jira' - and I'll walk you through it."
 
-**If authentication fails or they get stuck:**
-1. Have them type `/mcp` again to check if the integration appears
-2. If it's there but not authenticated, try the Authenticate option again
-3. If it's not there, re-run the `claude mcp add` command
-
-**Note:** MCP servers are configured globally for Claude Code, so they'll work in any project once set up.
+Move directly to Step 8.
 
 ### Step 8: Explain the Daily Workflow
 
@@ -366,13 +446,19 @@ This is important - set expectations about MARVIN's personality:
 >
 > Think of me as a thought partner, not a yes-man. If you want me to just execute without questioning, just say so - but by default, I'll help you think things through."
 
-### Step 10: First Session
+### Step 10: Wrap Up
 
 Tell them about the template:
 > "One last thing: **Keep the template folder you downloaded.** That's where I get updates from. When new features or integrations are added, you can run `/sync` to pull them into your workspace. Don't worry - your personal data is safe in your MARVIN folder and won't be overwritten."
 
-Then:
-> "Ready to try it out? Navigate to your MARVIN folder (`cd ~/marvin`) and start Claude Code. Then type `/marvin` and I'll give you your first briefing!"
+**If they set up integrations (came back from restart):**
+> "You're all set! Type `/marvin` and I'll give you your first real briefing."
+
+**If they skipped integrations (no restart needed):**
+> "Ready to try it out? Type `exit`, open a new terminal, type `marvin`, and then type `/marvin` for your first briefing!"
+
+**After they run `/marvin`:**
+Delete the `.onboarding-pending-auth` file if it exists, then give them their first briefing using the normal `/marvin` flow.
 
 ---
 
