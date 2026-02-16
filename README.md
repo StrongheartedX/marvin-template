@@ -1,107 +1,46 @@
 # MARVIN - Your AI Chief of Staff
 
-MARVIN is an AI assistant that remembers your conversations, tracks your goals, and helps you stay organized. Like having a personal chief of staff who never forgets anything.
+**MARVIN** = Manages Appointments, Reads Various Important Notifications
 
----
+An AI assistant that remembers your conversations, tracks your goals, and helps you stay organized. Like having a personal chief of staff who never forgets anything.
 
-## Getting Started
+## Why MARVIN?
 
-### 1. Download MARVIN
+MARVIN extends Claude Code with capabilities designed for getting things done:
 
-Click the green "Code" button above, then "Download ZIP". Unzip it somewhere on your computer (like your Downloads folder).
+- **Session continuity** - Pick up where you left off, even days later. Every conversation builds on the last.
+- **Goal tracking** - Set work and personal goals, MARVIN monitors progress and nudges you forward.
+- **Tool integrations** - Connect to Google Workspace, Microsoft 365, Atlassian, Slack, Linear, Notion, Telegram, and more.
+- **Extensibility** - Add commands, agents, and skills tailored to your workflow. Create new capabilities with simple markdown files.
+- **Thought partner** - MARVIN pushes back on weak ideas, asks probing questions, and helps you think through decisions. Not just a yes-man.
 
-Or if you use git:
-```
-git clone https://github.com/SterlingChin/start-template.git marvin-template
-```
+## Quick Start
 
-### 2. Open in Claude Code
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/SterlingChin/marvin-template.git
+   cd marvin-template
+   ```
 
-Open Claude Code and navigate to the folder you downloaded:
-```
-cd marvin-template
-claude
-```
+2. Open in Claude Code:
+   ```bash
+   claude
+   ```
 
-### 3. Ask MARVIN to Help You Set Up
+3. Ask MARVIN to help you set up:
+   > "Help me set up MARVIN"
 
-Just say:
-> "Help me set up MARVIN"
+That's it. MARVIN walks you through the rest: your profile, goals, workspace location, and optional integrations.
 
-MARVIN will walk you through everything step by step:
-- Your name and role
-- Your goals (work and personal)
-- How you want MARVIN to communicate
-- Where to create your personal workspace (default: ~/marvin)
-- Optional: Connect to Google Calendar, Gmail, Jira, etc.
+## What You Get
 
-That's it! MARVIN handles the rest.
+### Daily Workflow
 
----
+Start your day with `/start` for a briefing: priorities, deadlines, progress toward goals. Work naturally throughout the day, MARVIN remembers everything. End with `/end` to save context for next time.
 
-## How It Works
+Between sessions, `/update` saves progress without ending. `/sync` pulls new features from this template into your workspace.
 
-MARVIN creates a **personal workspace** separate from this template:
-
-```
-~/marvin/                    <- Your workspace (your data lives here)
-├── CLAUDE.md               # Your profile and preferences
-├── state/                  # Your goals and priorities
-├── sessions/               # Your daily session logs
-└── ...
-
-~/Downloads/start-template/ <- Template (keep this for updates!)
-├── .marvin/                # Setup scripts and integrations
-└── ...
-```
-
-**Your workspace** is where all your personal data lives. It's yours to customize.
-
-**The template** is where you get updates from. When new features are added, run `/sync` to pull them in.
-
----
-
-## Daily Usage
-
-Once set up, navigate to your workspace and start MARVIN:
-```
-cd ~/marvin
-claude
-```
-
-Or if you set up the shortcut during onboarding, just type:
-```
-marvin
-```
-
-### Start Your Day
-```
-/start
-```
-MARVIN gives you a briefing: your priorities, deadlines, and progress.
-
-### Throughout the Day
-Just talk naturally:
-- "Add a task: finish the report by Friday"
-- "What should I focus on today?"
-- "I finished the presentation"
-- "What did we talk about yesterday?"
-
-### Save Your Progress
-```
-/update
-```
-Quick save without ending the session.
-
-### End Your Day
-```
-/end
-```
-MARVIN saves everything for next time.
-
----
-
-## Commands
+### Commands
 
 | Command | What It Does |
 |---------|--------------|
@@ -110,114 +49,78 @@ MARVIN saves everything for next time.
 | `/update` | Quick checkpoint (save progress) |
 | `/report` | Generate a weekly summary |
 | `/commit` | Review and commit git changes |
-| `/code` | Open in your IDE |
 | `/sync` | Get updates from the template |
 | `/help` | Show all commands and integrations |
 
----
+### Integrations
 
-## Getting Updates
+MARVIN connects to tools you already use:
 
-When new features are added to MARVIN:
+| Integration | What It Provides |
+|-------------|------------------|
+| [Google Workspace](.marvin/integrations/google-workspace/) | Gmail, Calendar, Drive |
+| [Microsoft 365](.marvin/integrations/ms365/) | Outlook, Calendar, OneDrive, Teams |
+| [Atlassian](.marvin/integrations/atlassian/) | Jira, Confluence |
+| [Slack](.marvin/integrations/slack/) | Channel monitoring, posting |
+| [Linear](.marvin/integrations/linear/) | Issue tracking |
+| [Notion](.marvin/integrations/notion/) | Page reading, database queries |
+| [Telegram](.marvin/integrations/telegram/) | Chat with MARVIN from your phone |
+| [Parallel Search](.marvin/integrations/parallel-search/) | Web search capabilities |
 
-1. Update your template folder (git pull or re-download)
-2. Open your workspace in Claude Code
-3. Run `/sync`
+Each integration includes setup instructions in its directory.
 
-Your personal data is never overwritten. Only new commands and skills are added.
+### Skills and Agents
 
----
+MARVIN uses a `.claude/` directory structure for extensibility:
 
-## Migrating from an Older Version
+- **Commands** (`.claude/commands/`) - User-triggered workflows you invoke with slash commands
+- **Agents** (`.claude/agents/`) - Specialized subagents MARVIN spawns for delegated work
+- **Skills** (`.claude/skills/`) - Reusable capabilities Claude Code invokes contextually
 
-If you were using MARVIN before the workspace separation update, run the migration script to move to the new architecture without losing any data.
+Templates are included for each type. Just say "create a skill for X" and MARVIN generates the file.
 
-### 1. Get the Latest Template
+## How It Works
+
+MARVIN separates your workspace from the template:
 
 ```
-git clone https://github.com/SterlingChin/start-template.git marvin-template
+~/marvin/                    Your workspace (your data lives here)
+├── CLAUDE.md               Your profile and preferences
+├── state/                  Your goals and priorities
+├── sessions/               Your daily session logs
+└── ...
+
+~/marvin-template/          Template (get updates here)
+├── .marvin/                Setup scripts and integrations
+├── .claude/                Command and agent templates
+└── ...
 ```
 
-Or if you already have it cloned, run `git pull` to get the latest.
+Your workspace holds all personal data. The template provides updates. Run `/sync` from your workspace to pull new features without overwriting your data.
 
-### 2. Run the Migration Script
+## Migrating from Older Versions
 
-```
+If you were using MARVIN before the workspace separation:
+
+```bash
 cd marvin-template
 ./.marvin/migrate.sh
 ```
 
-### 3. Follow the Prompts
-
-The script will ask:
-- Where your current MARVIN installation is
-- Where you want your new workspace (default: ~/marvin)
-
-It automatically copies all your data:
-- Your profile (CLAUDE.md)
-- Goals and priorities (state/)
-- Session logs (sessions/)
-- Reports and content
-- Any custom skills you created
-
-### 4. Verify and Clean Up
-
-Once you confirm everything works in your new workspace, you can delete your old MARVIN folder.
-
----
-
-## What Can MARVIN Do?
-
-- **Remember everything** - Pick up where you left off, even days later
-- **Track your goals** - Monitor progress on work and personal goals
-- **Manage tasks** - Keep a running to-do list that persists
-- **Give briefings** - Start each day knowing what matters
-- **Push back** - MARVIN is a thought partner, not a yes-man
-- **Connect to your tools** - Integrations for Google, Microsoft, Atlassian, Telegram, and more
-
----
-
-## Integrations
-
-MARVIN can connect to your favorite tools:
-
-| Integration | What It Does | Setup |
-|-------------|--------------|-------|
-| [Google Workspace](.marvin/integrations/google-workspace/) | Gmail, Calendar, Drive | `/help` then follow prompts |
-| [Microsoft 365](.marvin/integrations/ms365/) | Outlook, Calendar, OneDrive, Teams | `/help` then follow prompts |
-| [Atlassian](.marvin/integrations/atlassian/) | Jira, Confluence | `/help` then follow prompts |
-| [Telegram](.marvin/integrations/telegram/) | Chat with MARVIN from your phone | Requires Python setup |
-| [Parallel Search](.marvin/integrations/parallel-search/) | Web search capabilities | `/help` then follow prompts |
-
-More integrations coming soon! Check `.marvin/integrations/` for the full list and setup instructions.
-
----
+The script copies your profile, goals, sessions, reports, and custom skills to a new workspace. Nothing is deleted from your old installation. Verify the new workspace works, then clean up the old one.
 
 ## Contributing
 
-MARVIN is open to contributions! Whether you want to add a new integration, fix a bug, or improve documentation:
+MARVIN welcomes contributions in three areas:
 
-1. **Fork the repo** and create a branch
-2. **Follow the guidelines** in [.marvin/integrations/CLAUDE.md](.marvin/integrations/CLAUDE.md)
-3. **Submit a PR** - we review all contributions
+1. **Integrations** - Add support for new tools. See [.marvin/integrations/CLAUDE.md](.marvin/integrations/CLAUDE.md) for patterns and security requirements.
+2. **Commands, agents, skills** - Extend MARVIN's capabilities. Templates are in `.claude/commands/`, `.claude/agents/`, and `.claude/skills/`.
+3. **Bug fixes** - Found an issue? Submit a PR with the fix and a test case.
 
-See the [integrations README](.marvin/integrations/README.md) for detailed contribution guidelines.
-
----
-
-## Need Help?
-
-Just ask MARVIN! Say things like:
-- "How do I add Google Calendar?"
-- "How do I create a new skill?"
-- "What commands are available?"
-
-Or type `/help` for a quick reference.
-
----
+Fork the repo, create a branch, and submit a PR. All contributions are reviewed.
 
 ## About
 
 MARVIN is named after the Paranoid Android from The Hitchhiker's Guide to the Galaxy.
 
-Created by [Sterling Chin](https://sterlingchin.com). Because everyone deserves a chief of staff.
+Created by [Sterling Chin](https://sterlingchin.com).
