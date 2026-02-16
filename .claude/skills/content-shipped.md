@@ -1,31 +1,22 @@
 ---
 name: content-shipped
-description: |
-  Log shipped content to the content log. Use when user says "I shipped", "I published", "just posted", or mentions completing content work.
-license: MIT
-compatibility: marvin
-metadata:
-  marvin-category: content
-  user-invocable: false
-  slash-command: null
-  model: default
-  proactive: true
+description: Proactively detect and log shipped content when user mentions publishing or completing work
 ---
 
-# Content Shipped Skill
+# Content Shipped
 
-Log completed content to track progress against goals.
+Log completed content to track progress against goals. This skill is proactive and activates when it detects shipping language in conversation.
 
 ## When to Use
 
-Trigger phrases:
+Claude Code should invoke this skill when it detects:
 - "I shipped..."
 - "I published..."
 - "Just posted..."
 - "Finished the..."
 - "The {article/video/post} is live"
 
-## Process
+## How It Works
 
 ### Step 1: Extract Content Details
 From the conversation, identify:
@@ -68,10 +59,7 @@ Progress: {X}/{Y} {content type} this month
 ```
 
 ## Notes
+
 - Be proactive about detecting shipped content in conversation
 - Don't require explicit trigger if context is clear
 - Keep celebration brief, not over-the-top
-
----
-
-*Skill created: 2026-01-22*

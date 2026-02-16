@@ -290,7 +290,7 @@ Key locations in the MARVIN workspace:
 - `state/` - Current state and goals (current.md, goals.md)
 - `content/` - Notes, drafts, content
 - `sessions/` - Daily session logs
-- `skills/` - Custom skills
+- `.claude/commands/` - Custom slash commands
 
 """
         # Add context from CLAUDE.md if available

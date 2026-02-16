@@ -1,28 +1,20 @@
 ---
 name: daily-briefing
-description: |
-  Generate daily briefing with priorities, progress, and alerts. Used as part of session-start or when user asks "what's on today". Internal skill supporting the marvin skill.
-license: MIT
-compatibility: marvin
-metadata:
-  marvin-category: session
-  user-invocable: false
-  slash-command: null
-  model: default
-  proactive: false
+description: Generate daily briefing with priorities, progress, and alerts. Used by /marvin or when user asks "what's on today"
 ---
 
-# Daily Briefing Skill
+# Daily Briefing
 
-Generate comprehensive daily briefing with priorities, progress, and alerts.
+Generate a comprehensive daily briefing with priorities, progress tracking, and proactive alerts.
 
 ## When to Use
 
-- Part of `marvin` skill (session start)
+Claude Code should invoke this skill when:
+- The `/marvin` command runs (as part of session start)
 - User asks "what's on today" or "daily briefing"
-- Morning check-in requests
+- User requests a morning check-in
 
-## Process
+## How It Works
 
 ### Step 1: Calendar Overview (if available)
 - Today's events with times
@@ -52,11 +44,12 @@ From `state/current.md`:
 Based on patterns:
 - "You haven't made progress on {goal} this week"
 - "Deadline for {item} is in 3 days"
-- "Monthly review coming up — want to schedule?"
+- "Monthly review coming up, want to schedule?"
 
 ## Output Format
 
 Keep concise. Structure as:
+
 ```
 ## {Day}, {Date}
 
@@ -72,6 +65,8 @@ Keep concise. Structure as:
 
 Offer to expand any section on request.
 
----
+## Notes
 
-*Skill created: 2026-01-22*
+- This skill supports the `/marvin` command but can also run standalone
+- Keep the briefing concise. Details on request.
+- If resuming a session (today's log exists), acknowledge what was already covered

@@ -224,7 +224,6 @@ mkdir -p "$WORKSPACE_DIR"
 # Copy user-facing files from template
 echo "Copying files to workspace..."
 cp -r "$TEMPLATE_DIR/.claude" "$WORKSPACE_DIR/"
-cp -r "$TEMPLATE_DIR/skills" "$WORKSPACE_DIR/"
 cp -r "$TEMPLATE_DIR/state" "$WORKSPACE_DIR/"
 cp "$TEMPLATE_DIR/CLAUDE.md" "$WORKSPACE_DIR/"
 [[ -f "$TEMPLATE_DIR/.env.example" ]] && cp "$TEMPLATE_DIR/.env.example" "$WORKSPACE_DIR/"
@@ -297,11 +296,10 @@ ${PERSONALITY_DESC}
 \`\`\`
 marvin/
 ├── CLAUDE.md              # This file (read on startup)
-├── skills/                # MARVIN's capabilities
-│   ├── marvin/            # Session start
-│   ├── end/               # Session end
-│   ├── update/            # Quick checkpoint
-│   └── commit/            # Git commits
+├── .claude/               # MARVIN capabilities
+│   ├── commands/          # Slash commands (user-triggered)
+│   ├── agents/            # Subagent definitions (delegated work)
+│   └── skills/            # Reusable skills (contextual invocation)
 ├── state/
 │   ├── current.md         # Current priorities and open threads
 │   └── goals.md           # Your goals
