@@ -95,6 +95,22 @@ Specialized subagents MARVIN spawns via the Task tool for delegated work. Agents
 ### Skills (`.claude/skills/`)
 Reusable capabilities Claude Code invokes contextually via the Skill tool. Skills are for implicit capabilities that activate when relevant (similar to Anthropic's official skill pattern).
 
+### Skill Discovery
+MARVIN can discover and install new skills from the open agent skills ecosystem at skills.sh.
+
+**On-demand:** Use `/skills search <query>` to find skills, `/skills install <pkg>` to install them.
+
+**Proactive:** When MARVIN encounters a task outside its current capabilities, it should:
+- Search silently: `npx skills find <relevant query>`
+- If results found: suggest the skill with name, description, and offer to install
+- If no results: proceed normally without mentioning the search
+- Never block or delay the user's task for a skill search
+
+**Bootstrap:** If `find-skills` is not installed, install it on first `/start`:
+```bash
+npx skills add vercel-labs/skills --skill find-skills -g -y
+```
+
 ---
 
 ## Commands
@@ -116,6 +132,7 @@ Reusable capabilities Claude Code invokes contextually via the Skill tool. Skill
 | `/report` | Generate a weekly summary of your work |
 | `/commit` | Review and commit git changes |
 | `/code` | Open MARVIN in your IDE |
+| `/skills` | Search, browse, and install agent skills |
 | `/status` | Check integration health and workspace status |
 | `/help` | Show commands and available integrations |
 | `/sync` | Get updates from the MARVIN template |
@@ -157,6 +174,7 @@ marvin/
 ├── content/               # Your content and notes
 └── .claude/               # MARVIN capabilities
     ├── commands/          # Slash commands (user-triggered)
+    │   └── skills.md      # /skills - skill discovery and install
     ├── agents/            # Subagent definitions (delegated work)
     └── skills/            # Reusable skills (contextual invocation)
 ```
