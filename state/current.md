@@ -1,15 +1,15 @@
 # Current State
 
 <!-- SETUP NOT COMPLETE: This file has placeholder content -->
-<!-- MARVIN will update this during setup -->
+<!-- MARVIN will populate this during your first session -->
 
 Last updated: Not yet configured
 
 ## Active Priorities
 
-1. [Complete MARVIN setup first]
-2. [Your priorities will go here]
-3. [After setup is complete]
+1. [Complete MARVIN setup]
+2. [Your priorities will appear here]
+3. [Updated every session by /end and /update]
 
 ## Open Threads
 
@@ -17,8 +17,9 @@ Last updated: Not yet configured
 
 ## Recent Context
 
-- Awaiting initial setup
+<!-- Last 5 session summaries, newest first -->
+<!-- Managed automatically by /end -->
 
 ---
 
-*This file is updated by MARVIN at the end of each session.*
+*This file is the source of truth for session continuity. MARVIN reads it on startup and updates it on every /end and /update. If "Last updated" is more than 3 days old, MARVIN will suggest a full refresh.*
