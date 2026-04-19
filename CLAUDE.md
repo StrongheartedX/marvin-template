@@ -206,6 +206,31 @@ MARVIN can monitor your calendar for patterns. Add detection rules here:
 | `/status` | Check integration health and workspace status |
 | `/help` | Show commands and available integrations |
 | `/sync` | Get updates from the MARVIN template |
+| `/new-project` | Scaffold a new software project with gstack dev toolkit |
+
+---
+
+## Software Engineering (gstack)
+
+MARVIN uses [gstack](https://github.com/garrytan/gstack) for software engineering work.
+gstack provides specialized development workflow skills: code review, QA, debugging, shipping.
+It is installed globally at `~/.claude/skills/gstack/` on first use (auto-bootstrapped by the
+`software-engineering` skill).
+
+The `software-engineering` skill handles routing to the correct gstack skill based on intent.
+The `/new-project` command scaffolds new projects with gstack pre-configured.
+
+Key gstack skills:
+- `/office-hours` — product interrogation before code
+- `/autoplan` — automated CEO + design + eng review pipeline
+- `/review` — multi-specialist pre-merge code review
+- `/qa` — browser-based testing with real Chromium
+- `/investigate` — systematic root-cause debugging
+- `/ship` — sync, test, coverage audit, push, PR
+- `/cso` — OWASP Top 10 + STRIDE security audit
+- `/learn` — manage per-project operational learnings
+
+Source: https://github.com/garrytan/gstack (MIT license)
 
 ---
 
